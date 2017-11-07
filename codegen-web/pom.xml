@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.hcl.nl.tools</groupId>
+		<artifactId>codegen</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>codegen-web</artifactId>
+	<packaging>jar</packaging>
+	<name>codegen-web Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hcl.nl.tools</groupId>
+			<artifactId>codegen-logging</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.directory.server</groupId>
+			<artifactId>apacheds-all</artifactId>
+			<version>1.5.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-ldap</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ldap</groupId>
+			<artifactId>spring-ldap-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-logging-juli</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jasper</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jasper-el</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jsp-api</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+
+	</dependencies>
+	<build>
+		<finalName>codegen</finalName>
+		<!-- <plugins> -->
+		<!-- <plugin> -->
+		<!-- <groupId>org.apache.tomcat.maven</groupId> -->
+		<!-- <artifactId>tomcat7-maven-plugin</artifactId> -->
+		<!-- <configuration> -->
+		<!-- <port>${tomcat.port}</port> -->
+		<!-- <path>/${web.contextroot}</path> -->
+		<!-- </configuration> -->
+		<!-- </plugin> -->
+		<!-- </plugins> -->
+	</build>
+	<profiles>
+		<profile>
+			<id>packageit</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<!--Build exploded war -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>war-exploded</id>
+								<phase>package</phase>
+								<goals>
+									<goal>exploded</goal>
+								</goals>
+								<configuration>
+									<webappDirectory>${project.build.directory}/war-plugin</webappDirectory>
+									<archiveClasses>true</archiveClasses>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<!--build startup scrips and jsw deamon -->
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>appassembler-maven-plugin</artifactId>
+						<version>1.6</version>
+						<configuration>
+							<assembleDirectory>${project.build.directory}/appassembler-plugin</assembleDirectory>
+							<repositoryLayout>flat</repositoryLayout>
+							<repositoryName>webapp/WEB-INF/lib</repositoryName>
+							<generateRepository>false</generateRepository>
+							<configurationDirectory>conf</configurationDirectory>
+							<copyConfigurationDirectory>true</copyConfigurationDirectory>
+							<includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+							<programs>
+								<program>
+									<id>${project.build.finalName}</id>
+									<mainClass>com.hcl.nl.codegentool.luncher.CodegenAppLuncher</mainClass>
+								</program>
+							</programs>
+							<daemons>
+								<daemon>
+									<id>${project.build.finalName}-deamon</id>
+									<mainClass>com.hcl.nl.codegentool.luncher.CodegenAppLuncher</mainClass>
+									<generatorConfigurations>
+										<generatorConfiguration>
+											<generator>jsw</generator>
+											<includes>
+												<include>linux-x86-64</include>
+												<include>windows-x86-64</include>
+											</includes>
+										</generatorConfiguration>
+									</generatorConfigurations>
+									<jvmSettings>
+										<initialMemorySize>512M</initialMemorySize>
+										<maxMemorySize>4G</maxMemorySize>
+										<extraArguments>
+											<extraArgument>-Ddeamon-webapp=webapp</extraArgument>
+										</extraArguments>
+									</jvmSettings>
+									<platforms>
+										<platform>jsw</platform>
+									</platforms>
+								</daemon>
+							</daemons>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>assemble</goal>
+									<goal>generate-daemons</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<!--move everything into nice directory structure, and zip up for distribution, 
+							see assembly.xml -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<configuration>
+							<descriptors>
+								<descriptor>src/main/assembly/assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<!-- clean up intermediary steps in build process -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete dir="${project.build.directory}/antrun" />
+										<delete dir="${project.build.directory}/appassembler-plugin" />
+										<delete dir="${project.build.directory}/archive-tmp" />
+										<delete dir="${project.build.directory}/maven-archiver" />
+										<delete dir="${project.build.directory}/war-plugin" />
+										<delete dir="${project.build.directory}/apidocs" />
+										<delete dir="${project.build.directory}/generated-resources" />
+										<delete dir="${project.build.directory}/generated-sources" />
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+
+</project>
